@@ -1,9 +1,10 @@
 import subprocess
 from os import listdir, chdir
 from os.path import basename, abspath, join, isdir, isfile
-from shutil import rmtree
+from shutil import rmtree, copytree
 
-pathOf7z = 'C:\\Program Files\\7-Zip'
+archivePath = 'C:\\Users\\rlaxo\\Desktop\\hitomiArchive'
+
 
 def makeCompList(root):
     abRoot = abspath(root)
@@ -19,11 +20,17 @@ def makeCompList(root):
     return {'dirList': toCompDirList, 'fileList': toCompFileList}
 
 
-def zipWorker(targetPath, origin):
+def zipWorker(targetPath, archiving, origin):
     dirName = basename(origin)
     if isfile(join(targetPath, dirName) + '.7z') is True:
         print('같은 이름의 압축파일이 존재합니다!')
         return
-    chdir(pathOf7z)
-    subprocess.call(['7z.exe', 'a', join(targetPath, dirName) + '.7z', origin])
-    rmtree(origin)
+    subprocess.call(['7z', 'a', '-mx=9', '-t7z', join(targetPath, dirName) + '.7z', origin])
+    try:
+        if archiving is True:
+            copytree(origin, join(archivePath, dirName))
+            print('Move the data to archive folder.')
+    except Exception as why:
+        print('같은 이름의 파일이 저장소에 존재합니다! error: ', why)
+    else:
+        rmtree(origin)

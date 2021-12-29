@@ -1,6 +1,6 @@
-from os import mkdir, stat, listdir
+from os import mkdir, stat, listdir, remove
 from os.path import basename, dirname, isdir, join, splitext
-from shutil import copy2
+from shutil import copy2, rmtree
 from PIL import Image
 
 Image.MAX_IMAGE_PIXELS = 933120000
@@ -59,7 +59,7 @@ def resizeWorker(dest, counter, totalCount, fileName):
         elif fileSize > 300000:
             resizer(originFileName, dest, 0.7, 75)
         elif fileSize > 100000:
-            resizer(originFileName, dest, 0.8, 80)
+            resizer(originFileName, dest, 0.7, 80)
         else:
             resizer(originFileName, dest, 0.8, 85)
         counter[0] += 1
@@ -67,3 +67,9 @@ def resizeWorker(dest, counter, totalCount, fileName):
               str(stat(join(dest, folderName, basename(root)) + '.jpg').st_size) + ' - ' + fileName)
     except Exception:
         pass
+    else:
+        try:
+            remove(originFileName)
+        except Exception as e:
+            print('Fail to remove original file')
+            print(e)
