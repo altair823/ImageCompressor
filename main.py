@@ -14,10 +14,6 @@ if __name__ == '__main__':
     resizedDestDir = abspath('temp')
     compressedDestDir = ''
 
-    if argv[1] == 'true' or argv[1] == 'false':
-        originDir = 'C:\\Users\\rlaxo\\Documents\\hitomi\\hitomi_downloaded'
-        compressedDestDir = 'C:\\Users\\rlaxo\\Desktop\\hitomi_compressed'
-    else:
         if len(argv) < 2:
             print('Wrong origin argument!')
             print('Wrong destination argument!')
