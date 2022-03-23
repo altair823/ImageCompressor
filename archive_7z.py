@@ -3,7 +3,7 @@ from os import listdir, chdir
 from os.path import basename, abspath, join, isdir, isfile
 from shutil import rmtree, copytree
 
-archivePath = 'C:\\Users\\rlaxo\\Desktop\\hitomiArchive'
+archivePath = 'C:\\Users\\rlaxo\\Desktop\\Archive'
 
 
 def makeCompList(root):
